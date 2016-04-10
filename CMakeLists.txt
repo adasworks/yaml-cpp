@@ -31,8 +31,9 @@ set(YAML_CPP_VERSION_MINOR "5")
 set(YAML_CPP_VERSION_PATCH "3")
 set(YAML_CPP_VERSION "${YAML_CPP_VERSION_MAJOR}.${YAML_CPP_VERSION_MINOR}.${YAML_CPP_VERSION_PATCH}")
 
-enable_testing()
-
+if(NOT CMAKE_CROSSCOMPILING)
+	enable_testing()
+endif()
 
 ###
 ### Project options
