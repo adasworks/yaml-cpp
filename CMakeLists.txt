@@ -133,17 +133,6 @@ else()
 	set(LABEL_SUFFIX "static")
 endif()
 
-if(APPLE)
-	if(APPLE_UNIVERSAL_BIN)
-		set(CMAKE_OSX_ARCHITECTURES ppc;i386)
-	endif()
-endif()
-
-if(IPHONE)
-	set(CMAKE_OSX_SYSROOT "iphoneos4.2")
-	set(CMAKE_OSX_ARCHITECTURES "armv6;armv7")
-endif()
-
 if(WIN32)
 	if(BUILD_SHARED_LIBS)
 		add_definitions(-D${PROJECT_NAME}_DLL)	# use or build Windows DLL
@@ -290,12 +279,6 @@ set_target_properties(yaml-cpp PROPERTIES
 	SOVERSION "${YAML_CPP_VERSION_MAJOR}.${YAML_CPP_VERSION_MINOR}"
 	PROJECT_LABEL "yaml-cpp ${LABEL_SUFFIX}"
 )
-
-if(IPHONE)
-	set_target_properties(yaml-cpp PROPERTIES
-		XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET "3.0"
-	)
-endif()
 
 if(MSVC)
 	if(NOT BUILD_SHARED_LIBS)
