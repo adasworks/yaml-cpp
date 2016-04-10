@@ -302,12 +302,20 @@ install(
 export(
     TARGETS yaml-cpp
     FILE "${PROJECT_BINARY_DIR}/yaml-cpp-targets.cmake")
-export(PACKAGE yaml-cpp)
+
+# use export(PACKAGE) only if supported and explicitly enabled
+if(NOT CMAKE_VERSION VERSION_LESS 2.8)
+	option(CMAKE_EXPORT_NO_PACKAGE_REGISTRY "Disable export(PACKAGE)" ON)
+	export(PACKAGE yaml-cpp)
+endif()
+
 set(EXPORT_TARGETS yaml-cpp CACHE INTERNAL "export targets")
 
-set(CONFIG_INCLUDE_DIRS "${YAML_CPP_SOURCE_DIR}/include")
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/yaml-cpp-config.cmake.in
-	"${PROJECT_BINARY_DIR}/yaml-cpp-config.cmake" @ONLY)
+if(NOT CMAKE_EXPORT_NO_PACKAGE_REGISTRY)
+	set(CONFIG_INCLUDE_DIRS "${YAML_CPP_SOURCE_DIR}/include")
+	configure_file(${CMAKE_CURRENT_SOURCE_DIR}/yaml-cpp-config.cmake.in
+		"${PROJECT_BINARY_DIR}/yaml-cpp-config.cmake" @ONLY)
+endif()
 
 if(WIN32 AND NOT CYGWIN)
 	set(INSTALL_CMAKE_DIR ${CMAKE_INSTALL_PREFIX}/CMake)
