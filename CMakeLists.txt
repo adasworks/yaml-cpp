@@ -168,7 +168,15 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR
 		set(GCC_EXTRA_OPTIONS "${GCC_EXTRA_OPTIONS} ${FLAG_TESTED}")
 	endif()
 	#
-	set(yaml_cxx_flags "-Wall ${GCC_EXTRA_OPTIONS} -pedantic -Wno-long-long -std=c++11 ${yaml_cxx_flags}")
+	if(CMAKE_VERSION VERSION_LESS 3.1)
+		set(GCC_EXTRA_OPTIONS "${GCC_EXTRA_OPTIONS} -std=c++11")
+		set(ADD_C11_FLAG ON)
+	elseif(NOT CMAKE_CXX_STANDARD)
+		set(CMAKE_CXX_STANDARD 11)
+		set(CMAKE_CXX_STANDARD_REQUIRED ON)
+	endif()
+
+	set(yaml_cxx_flags "-Wall ${GCC_EXTRA_OPTIONS} -pedantic -Wno-long-long ${yaml_cxx_flags}")
 
 	### Make specific
 	if(${CMAKE_BUILD_TOOL} MATCHES make OR ${CMAKE_BUILD_TOOL} MATCHES gmake)

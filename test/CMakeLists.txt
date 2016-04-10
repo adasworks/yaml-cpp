@@ -11,11 +11,12 @@ endif()
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR
    CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   set(yaml_test_flags "-Wno-c99-extensions -Wno-variadic-macros -Wno-sign-compare")
-
-  if(CMAKE_COMPILER_IS_GNUCXX)
-    set(yaml_test_flags "${yaml_test_flags} -std=gnu++11")
-  else()
-    set(yaml_test_flags "${yaml_test_flags} -std=c++11")
+  if(ADD_C11_FLAG)
+    if(CMAKE_COMPILER_IS_GNUCXX)
+      set(yaml_test_flags "${yaml_test_flags} -std=gnu++11")
+    else()
+      set(yaml_test_flags "${yaml_test_flags} -std=c++11")
+    endif()
   endif()
 endif()
 
