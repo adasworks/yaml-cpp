@@ -137,9 +137,6 @@ if(WIN32)
 	if(BUILD_SHARED_LIBS)
 		add_definitions(-D${PROJECT_NAME}_DLL)	# use or build Windows DLL
 	endif()
-	if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-		set(CMAKE_INSTALL_PREFIX "C:/")
-	endif()
 endif()
 
 # GCC or Clang or Intel Compiler specialities
