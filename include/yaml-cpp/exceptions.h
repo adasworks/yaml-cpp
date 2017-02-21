@@ -108,6 +108,10 @@ inline const std::string KEY_NOT_FOUND_WITH_KEY(
 }
 }
 
+#if defined _MSC_VER && _MSC_VER < 1900 && !defined noexcept
+#define noexcept _NOEXCEPT
+#endif
+
 class YAML_CPP_API Exception : public std::runtime_error {
  public:
   Exception(const Mark& mark_, const std::string& msg_)
